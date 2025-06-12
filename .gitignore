@@ -6,3 +6,4 @@ Data/textocr_dataset/annot.csv
 Data/images/
 Data/Anotaciones/
 Training/.ipynb_checkpoints/
+Training/Entrenamiento.ipynb
