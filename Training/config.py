@@ -3,15 +3,7 @@ from collections import Counter
 import pandas as pd
 import os
 
-# Configuración de caracteres
-#df = pd.read_csv("../Data/ImagenTexto_Validado.csv")
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#DATA_DIR = os.path.join(BASE_DIR, "Data")
-
-# Configuración de caracteres
-#csv_path = os.path.join(DATA_DIR, "ImagenTexto_Validado.csv")
-#df = pd.read_csv(csv_path)
-df = pd.read_csv(r"C:\Users\mauor\Documents\Proyecto\Training\ImagenTexto_Validado.csv")
+df = pd.read_csv("Data/ImagenTexto_Validado.csv")
 all_text = "".join(df['Texto'].dropna().astype(str))
 char_counts = Counter(all_text)
 

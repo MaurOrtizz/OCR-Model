@@ -3,7 +3,6 @@ from torch.utils.data import DataLoader
 import torch.optim as optim
 from tqdm import tqdm
 import os
-#import pandas as pd
 from model import OCRDataset, CRNN, custom_collate_fn
 from torchvision import transforms
 from config import char2idx, idx2char
@@ -16,15 +15,11 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # 2. Carga de datos
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))
-    ])
     
     dataset = OCRDataset(
-        csv_file="../Data/ImagenTexto_Validado.csv",
-        image_folder="../Data/Anotaciones",
-        transform=transform,
+        csv_file="Data/ImagenTexto_Validado.csv",
+        image_folder="Data/Procesadas",
+        #transform=transform,
         char2idx=char2idx,
         idx2char=idx2char
     )
@@ -32,11 +27,11 @@ def main():
     # 3. DataLoader optimizado
     dataloader = DataLoader(
         dataset,
-        batch_size=256,
+        batch_size=128,
         shuffle=True,
-        num_workers=4,  # Usar 4-8 según núcleos CPU
+        num_workers=2,  # Usar 4-8 según núcleos CPU
         pin_memory=True,
-        persistent_workers=True,
+        #persistent_workers=True,
         collate_fn=custom_collate_fn
     )
     
@@ -60,8 +55,6 @@ def main():
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         return checkpoint['epoch'], checkpoint['loss']
     
-    dataloader = DataLoader(dataset, batch_size=256, shuffle=True, collate_fn=custom_collate_fn, num_workers=2, pin_memory=True)
-
     # --- 2. Configuración inicial (MODIFICAR ESTA PARTE) ---
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = CRNN(img_height=32, num_channels=1, num_classes=len(char2idx)).to(device)

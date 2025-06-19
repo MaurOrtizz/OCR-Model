@@ -4,6 +4,8 @@ Data/textocr_dataset/train_val_images
 Data/textocr_dataset/.ipynb_checkpoints/
 Data/textocr_dataset/annot.csv
 Data/images/
+Data/Procesadas/
 Data/Anotaciones/
 Training/.ipynb_checkpoints/
 Training/Entrenamiento.ipynb
+Training/__pycache__/
